@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* Theme: dark olive greens, yellow accent, black header/footer, red Adobe logo */
+@theme {
+  --color-accent: #facc15;       /* yellow - buttons, hover */
+  --color-adobe: #eb1000;        /* Adobe red - logo */
+  --color-accent-ink: #0e130a;   /* dark text on yellow */
+  --color-ink: #ffffff;          /* main text */
+  --color-ink-muted: #d1d5db;    /* secondary text */
+  --color-surface: #191f14;      /* page background */
+  --color-card: #242e1c;         /* carousel card */
+  --color-header: #000000;       /* header and footer */
+  --color-line: #3a4a2c;         /* borders */
+
+  --font-sans: "Roboto", system-ui, sans-serif;
+}
