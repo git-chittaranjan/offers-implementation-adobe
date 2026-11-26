@@ -6,7 +6,9 @@ export default function OfferCarousel({ offers }) {
 
   // Auto-rotate every 4 seconds
   useEffect(() => {
-    if (count < 2) return
+    if (count <= 1) {
+      return;   // No rotation needed with 0 or 1 offer
+    }
     const id = setInterval(() => setIndex((i) => (i + 1) % count), 4000)
     return () => clearInterval(id)
   }, [count])
@@ -19,19 +21,27 @@ export default function OfferCarousel({ offers }) {
 
   return (
     <div className="rounded-xl bg-card shadow-lg">
-      {offer.imageUrl && <img src={offer.imageUrl} alt={offer.title} className="w-full rounded-t-xl" />}
+
+      {/* Displays an image only if offer.imageUrl has a truthy value. */}
+      {offer.imageUrl && (
+        <img
+          src={offer.imageUrl}
+          alt={offer.title}
+          className="w-full rounded-t-xl"
+        />
+      )}
       <div className="p-6">
         <h2 className="text-xl font-semibold">{offer.title}</h2>
         <p className="mt-2 text-ink-muted">{offer.description}</p>
-        <a href={offer.ctaUrl} className="mt-4 inline-block rounded bg-accent px-4 py-2 font-medium text-accent-ink hover:bg-yellow-300">
+        <a href={offer.ctaUrl} className="mt-4 inline-block rounded bg-adobe px-4 py-2 font-medium text-white hover:bg-adobe-hover">
           {offer.ctaText}
         </a>
       </div>
       {count > 1 && (
         <div className="flex items-center justify-between border-t border-line p-3">
-          <button onClick={prev} className="px-3 py-1 hover:text-accent">◀ Prev</button>
+          <button onClick={prev} className="px-3 py-1 hover:text-adobe">◀ Prev</button>
           <span className="text-sm text-ink-muted">{index + 1} / {count}</span>
-          <button onClick={next} className="px-3 py-1 hover:text-accent">Next ▶</button>
+          <button onClick={next} className="px-3 py-1 hover:text-adobe">Next ▶</button>
         </div>
       )}
     </div>

@@ -2,19 +2,17 @@ import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import OfferCarousel from './components/OfferCarousel'
 import Footer from './components/Footer'
-import { getOffers } from './services/offerService'
+import { getOffers, subscribeOffers } from './services/offerService'
+
+const PRODUCT_ID = undefined // e.g. "HOME_LOAN" on a product page
 
 export default function App() {
   const [offers, setOffers] = useState([])
 
-  // useEffect(() => {
-  //   async function fetchOffers() {
-  //     const data = await getOffers();
-  //     setOffers(data);
-  //   }
-
-  //   fetchOffers();
-  // }, []);
+  useEffect(() => {
+    getOffers(PRODUCT_ID).then(setOffers)
+    return subscribeOffers(setOffers, PRODUCT_ID)
+  }, [])
 
   return (
     <div className="flex min-h-screen flex-col">

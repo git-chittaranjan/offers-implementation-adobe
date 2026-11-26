@@ -4,6 +4,7 @@
 @theme {
   --color-accent: #facc15;       /* yellow - buttons, hover */
   --color-adobe: #eb1000;        /* Adobe red - logo */
+  --color-adobe-hover: #C50F00;  /* Adobe red - logo hover */
   --color-accent-ink: #0e130a;   /* dark text on yellow */
   --color-ink: #ffffff;          /* main text */
   --color-ink-muted: #d1d5db;    /* secondary text */

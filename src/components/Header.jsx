@@ -4,8 +4,8 @@ const LINKS = [
     href: 'https://experienceleague.adobe.com/en/docs/experience-platform/web-sdk/home',
   },
   {
-    label: 'Offer Decisioning',
-    href: 'https://experienceleague.adobe.com/en/docs/journey-optimizer/using/decisioning/offer-decisioning/get-started-decisioning/starting-offer-decisioning',
+    label: 'Journey Optimizer',
+    href: 'https://experienceleague.adobe.com/en/docs/journey-optimizer',
   },
 ]
 
@@ -22,9 +22,16 @@ export default function Header() {
           </span>
         </div>
 
-        <nav className="flex gap-4 text-sm font-medium">
+
+        <nav className="flex gap-3 text-sm font-medium">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-ink-muted hover:text-accent">
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded bg-adobe px-4 py-2 text-white hover:bg-adobe-hover"
+            >
               {link.label}
             </a>
           ))}

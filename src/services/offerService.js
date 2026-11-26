@@ -1,41 +1,40 @@
-// Decision scope of the IP_NLI_PAGE_RECOMMENDED_OFFERS placement.
-// Copy it from AJO: Decisions > your decision > Decision scopes > Copy (the long base64 string).
-const DECISION_SCOPE = 'PASTE_YOUR_DECISION_SCOPE_HERE'
-
-const PLACEHOLDER_OFFERS = [
+// Channel/LOP default offers, shown when OD returns nothing
+export const DEFAULT_OFFERS = [
   {
-    id: 'banking',
-    title: 'Zero-Balance Savings Account',
-    description: 'Open a digital savings account in minutes. No minimum balance.',
-    imageUrl: '/images/banking.svg',
-    ctaText: 'Open Account',
-    ctaUrl: '#',
+    id: "default-1",
+    title: "Default offer",
+    description: "Replace with your default content",
+    imageUrl: "",
+    ctaText: "Know more",
+    ctaUrl: "#",
   },
-  {
-    id: 'credit-card',
-    title: 'Platinum Rewards Credit Card',
-    description: 'Earn 5X reward points on online spends and zero joining fee.',
-    imageUrl: '/images/credit-card.svg',
-    ctaText: 'Apply Now',
-    ctaUrl: '#',
-  },
-  {
-    id: 'personal-loan',
-    title: 'Pre-Approved Personal Loan',
-    description: 'Get up to ₹25 lakh with instant disbursal and minimal paperwork.',
-    imageUrl: '/images/personal-loan.svg',
-    ctaText: 'Check Eligibility',
-    ctaUrl: '#',
-  },
-]
+];
 
-// Step 1: request offers from Adobe Offer Decisioning and print the response.
-export async function getOffers() {
-  const response = await window.alloy('sendEvent', {
-    decisionScopes: [DECISION_SCOPE],
-  })
+const toCarouselOffer = (o) => ({
+  id: o.id,
+  productID: o.content?.productID,
+  title: o.content?.headerText,
+  description: o.content?.subHeaderText,
+  imageUrl: o.content?.imageURL,
+  ctaText: o.content?.primaryCTAText,
+  ctaUrl: o.content?.primaryCTA,
+});
 
-  console.log('Offer Decisioning response:', response)
+// productId optional: filter by product; already sorted by score
+export function mapOffers(list = [], productId) {
+  const filtered = productId
+    ? list.filter((o) => o.content?.productID === productId).slice(0, 1)
+    : list;
+  return filtered.length ? filtered.map(toCarouselOffer) : DEFAULT_OFFERS;
+}
 
-  return PLACEHOLDER_OFFERS
+export async function getOffers(productId) {
+  return mapOffers(window.__odOffers, productId);
+}
+
+// Called whenever Adobe returns offers
+export function subscribeOffers(callback, productId) {
+  const handler = (e) => callback(mapOffers(e.detail, productId));
+  window.addEventListener("od-offers", handler);
+  return () => window.removeEventListener("od-offers", handler);
 }
