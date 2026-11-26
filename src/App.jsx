@@ -7,14 +7,14 @@ import { getOffers } from './services/offerService'
 export default function App() {
   const [offers, setOffers] = useState([])
 
-  useEffect(() => {
-    async function fetchOffers() {
-      const data = await getOffers();
-      setOffers(data);
-    }
+  // useEffect(() => {
+  //   async function fetchOffers() {
+  //     const data = await getOffers();
+  //     setOffers(data);
+  //   }
 
-    fetchOffers();
-  }, []);
+  //   fetchOffers();
+  // }, []);
 
   return (
     <div className="flex min-h-screen flex-col">
