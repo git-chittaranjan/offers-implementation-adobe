@@ -8,8 +8,13 @@ export default function App() {
   const [offers, setOffers] = useState([])
 
   useEffect(() => {
-    getOffers().then(setOffers)
-  }, [])
+    async function fetchOffers() {
+      const data = await getOffers();
+      setOffers(data);
+    }
+
+    fetchOffers();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col">

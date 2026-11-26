@@ -1,9 +1,6 @@
-// Where offers come from. Later, replace the placeholder with an Adobe Web SDK call:
-//
-//   const result = await window.alloy('sendEvent', {
-//     decisionScopes: ['<your-decision-scope>'],
-//   })
-//   return result.propositions  // map these to { id, title, description, imageUrl, ctaText, ctaUrl }
+// Decision scope of the IP_NLI_PAGE_RECOMMENDED_OFFERS placement.
+// Copy it from AJO: Decisions > your decision > Decision scopes > Copy (the long base64 string).
+const DECISION_SCOPE = 'PASTE_YOUR_DECISION_SCOPE_HERE'
 
 const PLACEHOLDER_OFFERS = [
   {
@@ -32,6 +29,13 @@ const PLACEHOLDER_OFFERS = [
   },
 ]
 
+// Step 1: request offers from Adobe Offer Decisioning and print the response.
 export async function getOffers() {
+  const response = await window.alloy('sendEvent', {
+    decisionScopes: [DECISION_SCOPE],
+  })
+
+  console.log('Offer Decisioning response:', response)
+
   return PLACEHOLDER_OFFERS
 }
