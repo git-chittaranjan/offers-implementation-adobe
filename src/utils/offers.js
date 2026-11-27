@@ -1,7 +1,7 @@
 // Add or remove placements as needed
 const PLACEMENTS = ["IP_NLI_LOGOUT_PAGE_BANNER"];
 
-//window.app = window.app || {};
+window.app = window.app || {}; // Withou this default offers was not being displayed when Adobe offers were not available with window.app.modifyComponents
 
 window.app.modifyComponents = function (props) {
 
