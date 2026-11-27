@@ -1,115 +1,194 @@
 // Default offers - It followes the same structure as Web SDK's event.propositions object
 
+// export const DEFAULT_OFFERS = [
+//     {
+//         id: "dps:personalized-offer:1ca96d3d4b49414b",
+//         name: "Home Loan Default Offer",
+//         score: 1000.0,
+//         priority: 100.0,
+//         data: {
+//             id: "dps:personalized-offer:1ca96d3d4b49414b",
+//             format: "application/json",
+//             language: ["en-us"],
+//             content: "{\"headerText\":\"Home Loan - Default Offer\",\"subHeaderText\":\"Get XYZ Bank Home Loan sanctioned with no documentation. T&Cs.\",\"imageURL\":\"/default-offers/home-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+//             characteristics: {
+//                 ViewCapping: "3",
+//                 ViewCappingDays: "3",
+//                 ClickCapping: "1",
+//                 ClickCappingDays: "3",
+//                 Product: "HL",
+//                 OfferType: "Default",
+//                 TestFlag: "False",
+//                 OfferCode: "DefaultHL",
+//             }
+//         }
+//     },
+//     {
+//         id: "dps:personalized-offer:1a5fb683415dc08f",
+//         name: "Consumer EMI Default Offer",
+//         score: 900.0,
+//         priority: 100.0,
+//         data: {
+//             id: "dps:personalized-offer:1a5fb683415dc08f",
+//             format: "application/json",
+//             language: ["en-us"],
+//             content: "{\"headerText\":\"Dream Appliances EMI - Default Offer\",\"subHeaderText\":\"Convert your purchases into easy EMIs!\",\"imageURL\":\"/default-offers/consumer-emi.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+//             characteristics: {
+//                 ViewCapping: "3",
+//                 ViewCappingDays: "3",
+//                 ClickCapping: "1",
+//                 ClickCappingDays: "3",
+//                 Product: "CD",
+//                 OfferType: "Default",
+//                 TestFlag: "False",
+//                 OfferCode: "DefaultCD",
+//             }
+//         }
+//     },
+//     {
+//         id: "dps:personalized-offer:19d8f56e077b848a",
+//         name: "Gold Loan New Default Offer",
+//         score: 800.0,
+//         priority: 100.0,
+//         data: {
+//             id: "dps:personalized-offer:19d8f56e077b848a",
+//             format: "application/json",
+//             language: ["en-us"],
+//             content: "{\"headerText\":\"Gold Loan - Default Offer\",\"subHeaderText\":\"Fixed interest rate, simple documentation and much more\",\"imageURL\":\"/default-offers/gold-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+//             characteristics: {
+//                 ViewCapping: "3",
+//                 ViewCappingDays: "3",
+//                 ClickCapping: "1",
+//                 ClickCappingDays: "3",
+//                 Product: "GL",
+//                 OfferType: "Default",
+//                 TestFlag: "False",
+//                 OfferCode: "DefaultGL",
+//             }
+//         }
+//     },
+//     {
+//         id: "dps:personalized-offer:1ca9682381094148",
+//         name: "Fixed Deposit Default Offer",
+//         score: 1,
+//         priority: 1,
+//         data: {
+//             id: "dps:personalized-offer:1ca9682381094148",
+//             format: "application/json",
+//             language: ["en-us"],
+//             content: "{\"headerText\":\"Fixed Deposit - Default Offer\",\"subHeaderText\":\"Grow your money safely with Fixed Deposits. T&Cs.\",\"imageURL\":\"/default-offers/fixed-deposit.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+//             characteristics: {
+//                 ViewCapping: "3",
+//                 ViewCappingDays: "3",
+//                 ClickCapping: "1",
+//                 ClickCappingDays: "3",
+//                 Product: "FD",
+//                 OfferType: "Default",
+//                 TestFlag: "False",
+//                 OfferCode: "DefaultFD",
+//             }
+//         }
+//     },
+//     {
+//         id: "dps:personalized-offer:1ca97517a6c94150",
+//         name: "Auto Loan Default Offer",
+//         score: 3,
+//         priority: 3,
+//         data: {
+//             id: "dps:personalized-offer:1ca97517a6c94150",
+//             format: "application/json",
+//             language: ["en-us"],
+//             content: "{\"headerText\":\"Car Loan - Default Offer\",\"subHeaderText\":\"Car Loans with digital disbursement & tie-ups with 3,400+ dealers! T&Cs.\",\"imageURL\":\"/default-offers/car-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+//             characteristics: {
+//                 ViewCapping: "3",
+//                 ViewCappingDays: "3",
+//                 ClickCapping: "1",
+//                 ClickCappingDays: "3",
+//                 Product: "AL",
+//                 OfferType: "Default",
+//                 TestFlag: "False",
+//                 OfferCode: "DefaultAL"
+//             }
+//         }
+//     }
+
+// ];
+
+
+
+
 export const DEFAULT_OFFERS = [
     {
+        id: "dps:personalized-offer:1ca96a578e494149",
+        etag: "4",
+        name: "Personal Loan Default Offer",
+        score: 5,
+        priority: 5,
+        schema: "https://ns.adobe.com/experience/offer-management/content-component-json",
+        data: {
+            id: "dps:personalized-offer:1ca96a578e494149",
+            format: "application/json",
+            language: ["en-us"],
+            content: "{\"headerText\":\"Grow Your Global Earnings - Default Offer\",\"subHeaderText\":\"Save in foreign currency with attractive returns and full repatriability.\",\"imageURL\":\"https://www.icici.bank.in/content/dam/icicibank-revamp/nri-banking/fcnr-place-holder.webp\",\"primaryCTAText\":\"Open FCNR Deposit\",\"primaryCTA\":\"https://buy.icici.bank.in/cap-v2/utm?iup=PL852452&ius=CAP83006AA&ITM=IP_NLI_LOGOUT_PAGE_BANNER_PL_DefaultPL_\"}",
+            characteristics: {
+                ViewCapping: "3",
+                OfferCategory: "PL",
+                OfferType: "Default",
+                TestFlag: "False",
+                OfferCode: "DefaultPL",
+                ClickCappingDays: "3",
+                Product: "PL",
+                ClickCapping: "1",
+                ViewCappingDays: "3"
+            }
+        }
+    },
+    {
         id: "dps:personalized-offer:1ca96d3d4b49414b",
+        etag: "3",
         name: "Home Loan Default Offer",
-        score: 1000.0,
-        priority: 100.0,
+        score: 4,
+        priority: 4,
+        schema: "https://ns.adobe.com/experience/offer-management/content-component-json",
         data: {
             id: "dps:personalized-offer:1ca96d3d4b49414b",
             format: "application/json",
             language: ["en-us"],
-            content: "{\"headerText\":\"Home Loan - Default Offer\",\"subHeaderText\":\"Get XYZ Bank Home Loan sanctioned with no documentation. T&Cs.\",\"imageURL\":\"/default-offers/home-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+            content: "{\"headerText\":\"Home Loan - Default Offer\",\"subHeaderText\":\"Get ICICI Bank Home Loan sanctioned with no documentation. T&Cs.\",\"imageURL\":\"https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/images/hl.webp\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://buy.icici.bank.in/ucj/HomeLoan/personal?ius=IS83006US&iup=UCJHL1000480&ITM=IP_NLI_LOGOUT_PAGE_BANNER_HL_DefaultHL_\"}",
             characteristics: {
                 ViewCapping: "3",
-                ViewCappingDays: "3",
-                ClickCapping: "1",
-                ClickCappingDays: "3",
-                Product: "HL",
                 OfferType: "Default",
                 TestFlag: "False",
                 OfferCode: "DefaultHL",
-            }
-        }
-    },
-    {
-        id: "dps:personalized-offer:1a5fb683415dc08f",
-        name: "Consumer EMI Default Offer",
-        score: 900.0,
-        priority: 100.0,
-        data: {
-            id: "dps:personalized-offer:1a5fb683415dc08f",
-            format: "application/json",
-            language: ["en-us"],
-            content: "{\"headerText\":\"Dream Appliances EMI - Default Offer\",\"subHeaderText\":\"Convert your purchases into easy EMIs!\",\"imageURL\":\"/default-offers/consumer-emi.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
-            characteristics: {
-                ViewCapping: "3",
-                ViewCappingDays: "3",
-                ClickCapping: "1",
                 ClickCappingDays: "3",
-                Product: "CD",
-                OfferType: "Default",
-                TestFlag: "False",
-                OfferCode: "DefaultCD",
-            }
-        }
-    },
-    {
-        id: "dps:personalized-offer:19d8f56e077b848a",
-        name: "Gold Loan New Default Offer",
-        score: 800.0,
-        priority: 100.0,
-        data: {
-            id: "dps:personalized-offer:19d8f56e077b848a",
-            format: "application/json",
-            language: ["en-us"],
-            content: "{\"headerText\":\"Gold Loan - Default Offer\",\"subHeaderText\":\"Fixed interest rate, simple documentation and much more\",\"imageURL\":\"/default-offers/gold-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
-            characteristics: {
-                ViewCapping: "3",
-                ViewCappingDays: "3",
+                Product: "HL",
                 ClickCapping: "1",
-                ClickCappingDays: "3",
-                Product: "GL",
-                OfferType: "Default",
-                TestFlag: "False",
-                OfferCode: "DefaultGL",
-            }
-        }
-    },
-    {
-        id: "dps:personalized-offer:1ca9682381094148",
-        name: "Fixed Deposit Default Offer",
-        score: 1,
-        priority: 1,
-        data: {
-            id: "dps:personalized-offer:1ca9682381094148",
-            format: "application/json",
-            language: ["en-us"],
-            content: "{\"headerText\":\"Fixed Deposit - Default Offer\",\"subHeaderText\":\"Grow your money safely with Fixed Deposits. T&Cs.\",\"imageURL\":\"/default-offers/fixed-deposit.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
-            characteristics: {
-                ViewCapping: "3",
-                ViewCappingDays: "3",
-                ClickCapping: "1",
-                ClickCappingDays: "3",
-                Product: "FD",
-                OfferType: "Default",
-                TestFlag: "False",
-                OfferCode: "DefaultFD",
+                ViewCappingDays: "3"
             }
         }
     },
     {
         id: "dps:personalized-offer:1ca97517a6c94150",
+        etag: "3",
         name: "Auto Loan Default Offer",
         score: 3,
         priority: 3,
+        schema: "https://ns.adobe.com/experience/offer-management/content-component-json",
         data: {
             id: "dps:personalized-offer:1ca97517a6c94150",
             format: "application/json",
             language: ["en-us"],
-            content: "{\"headerText\":\"Car Loan - Default Offer\",\"subHeaderText\":\"Car Loans with digital disbursement & tie-ups with 3,400+ dealers! T&Cs.\",\"imageURL\":\"/default-offers/car-loan.png\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://www.chittaranjansaha.com/\"}",
+            content: "{\"headerText\":\"Car Loan\",\"subHeaderText\":\"Car Loans with digital disbursement & tie-ups with 3,400+ dealers! T&Cs.\",\"imageURL\":\"https://www.icici.bank.in/content/dam/icicibank/india/managed-assets/images/logo/al-nli.webp\",\"primaryCTAText\":\"APPLY NOW\",\"primaryCTA\":\"https://buy.icici.bank.in/cap-v2/utm?iup=CAPUN1046AL&ius=COM31684ON&ITM=IP_NLI_LOGOUT_PAGE_BANNER_AL_DefaultAL_\"}",
             characteristics: {
                 ViewCapping: "3",
-                ViewCappingDays: "3",
-                ClickCapping: "1",
-                ClickCappingDays: "3",
-                Product: "AL",
                 OfferType: "Default",
                 TestFlag: "False",
-                OfferCode: "DefaultAL"
+                OfferCode: "DefaultAL",
+                ClickCappingDays: "3",
+                Product: "AL",
+                ClickCapping: "1",
+                ViewCappingDays: "3"
             }
         }
     }
-
 ];
