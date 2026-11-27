@@ -40,11 +40,16 @@ const toCarouselOffer = (offer) => {
 // Return Adobe offers if available; otherwise return default offers
 export function mapOffers(offerList = []) {
 
+  console.log("Received Adobe offers:", offerList);
+  console.log("Default offers:", DEFAULT_OFFERS);
+
   var offersToDisplay = offerList.length > 0 ? offerList : DEFAULT_OFFERS;
 
   var carouselOffers = offersToDisplay
     .map(toCarouselOffer)
     .filter(Boolean);
+
+  console.log("Final carousel offers:", carouselOffers);
 
   // Use defaults if none of the received offers could be mapped (e.g., due to missing content of all OD offers)
   if (carouselOffers.length === 0 && offersToDisplay !== DEFAULT_OFFERS) {
