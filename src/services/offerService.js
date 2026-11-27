@@ -1,40 +1,77 @@
-// Channel/LOP default offers, shown when OD returns nothing
-export const DEFAULT_OFFERS = [
-  {
-    id: "default-1",
-    title: "Default offer",
-    description: "Replace with your default content",
-    imageUrl: "",
-    ctaText: "Know more",
-    ctaUrl: "#",
-  },
-];
+import { DEFAULT_OFFERS } from "./defaultOffers";
 
-const toCarouselOffer = (o) => ({
-  id: o.id,
-  productID: o.content?.productID,
-  title: o.content?.headerText,
-  description: o.content?.subHeaderText,
-  imageUrl: o.content?.imageURL,
-  ctaText: o.content?.primaryCTAText,
-  ctaUrl: o.content?.primaryCTA,
-});
+// Extract and parse offer content
+const getOfferContent = (offer) => {
 
-// productId optional: filter by product; already sorted by score
-export function mapOffers(list = [], productId) {
-  const filtered = productId
-    ? list.filter((o) => o.content?.productID === productId).slice(0, 1)
-    : list;
-  return filtered.length ? filtered.map(toCarouselOffer) : DEFAULT_OFFERS;
+  var content = offer.content || offer.data?.content;
+
+  if (typeof content === "string") {
+    try {
+      content = JSON.parse(content);
+    } catch {
+      return null;
+    }
+  }
+
+  return content && typeof content === "object" ? content : null;
+};
+
+
+// Convert an offer into the carousel format
+const toCarouselOffer = (offer) => {
+
+  var content = getOfferContent(offer);
+
+  if (!content) {
+    return null;
+  }
+
+  return {
+    id: offer.id,
+    title: content.headerText,
+    description: content.subHeaderText,
+    imageUrl: content.imageURL,
+    ctaText: content.primaryCTAText,
+    ctaUrl: content.primaryCTA
+  };
+};
+
+
+// Return Adobe offers if available; otherwise return default offers
+export function mapOffers(offerList = []) {
+
+  var offersToDisplay = offerList.length > 0 ? offerList : DEFAULT_OFFERS;
+
+  var carouselOffers = offersToDisplay
+    .map(toCarouselOffer)
+    .filter(Boolean);
+
+  // Use defaults if none of the received offers could be mapped (e.g., due to missing content of all OD offers)
+  if (carouselOffers.length === 0 && offersToDisplay !== DEFAULT_OFFERS) {
+    return DEFAULT_OFFERS.map(toCarouselOffer).filter(Boolean);
+  }
+
+  return carouselOffers;
 }
 
-export async function getOffers(productId) {
-  return mapOffers(window.__odOffers, productId);
+
+// Get offers available when the application loads
+export async function getOffers() {
+  return mapOffers(window.__odOffers || []);
 }
 
-// Called whenever Adobe returns offers
-export function subscribeOffers(callback, productId) {
-  const handler = (e) => callback(mapOffers(e.detail, productId));
-  window.addEventListener("od-offers", handler);
-  return () => window.removeEventListener("od-offers", handler);
+
+// Listen for offers returned by Adobe
+export function subscribeOffers(callback) {
+
+  const eventHandler = (event) => {
+    callback(mapOffers(event.detail || []));
+  };
+
+  window.addEventListener("od-offers", eventHandler);
+
+  // Remove the event listener when the component unmounts to prevent memory leaks and duplicate callbacks.
+  return () => {
+    window.removeEventListener("od-offers", eventHandler);
+  };
 }

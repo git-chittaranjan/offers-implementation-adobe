@@ -1,28 +1,48 @@
-window.app = window.app || {};
-
 // Add or remove placements as needed
-const PLACEMENTS = [
-    "IP_NLI_LOGOUT_PAGE_BANNER",
-];
+const PLACEMENTS = ["IP_NLI_LOGOUT_PAGE_BANNER"];
 
-window.app.modifyComponents = function (props) {
+window.modifyComponents = function (props) {
+
+    console.log("modifyComponents received props:", props);
+
     const offers = [];
 
-    (Array.isArray(props) ? props : [props]).forEach((p) => {
-        const name = p?.placement?.name || p?.scopeDetails?.placement?.name;
-        if (!PLACEMENTS.includes(name)) return;
+    // Ensure propositions is always an array
+    var propositions = Array.isArray(props) ? props : (props ? [props] : []);
 
-        (p.items || []).forEach((item) => {
-            let content = item?.data?.content;
-            if (typeof content === "string") {
-                try { content = JSON.parse(content); } catch { return; }
-            }
-            offers.push({ id: item.id, score: item.score ?? 0, content });
+    propositions.forEach((p) => {
+
+        const placementName = p?.placement?.name || p?.scopeDetails?.placement?.name;
+
+        // Skip propositions that don't match the required placement
+        if (!PLACEMENTS.includes(placementName)) {
+            return;
+        }
+
+        var offersItems = p.items || [];
+
+        offersItems.forEach((item) => {
+
+            // Extract offer properties from the Adobe response
+            offers.push({
+                id: item?.id,
+                name: item?.name,
+                score: item?.score,
+                priority: item?.priority,
+                content: item?.data?.content
+            });
+
         });
     });
 
-    offers.sort((a, b) => b.score - a.score); // high to low
+    // Store offers globally in __odOffers object
     window.__odOffers = offers;
-    window.dispatchEvent(new CustomEvent("od-offers", { detail: offers }));
-    return offers.map((o) => o.id);
+
+    // Notify the application that Adobe offers are available
+    window.dispatchEvent(
+        new CustomEvent("od-offers", { detail: offers })
+    );
+
+    // Return the extracted offer IDs
+    return offers.map((offer) => offer.id);
 };

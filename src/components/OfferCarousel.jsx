@@ -39,9 +39,9 @@ export default function OfferCarousel({ offers }) {
       </div>
       {count > 1 && (
         <div className="flex items-center justify-between border-t border-line p-3">
-          <button onClick={prev} className="px-3 py-1 hover:text-adobe">◀ Prev</button>
+          <button onClick={prev} className="px-3 py-1 hover:text-accent">◀ Prev</button>
           <span className="text-sm text-ink-muted">{index + 1} / {count}</span>
-          <button onClick={next} className="px-3 py-1 hover:text-adobe">Next ▶</button>
+          <button onClick={next} className="px-3 py-1 hover:text-accent">Next ▶</button>
         </div>
       )}
     </div>
