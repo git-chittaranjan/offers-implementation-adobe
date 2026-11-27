@@ -33,7 +33,7 @@ export default function OfferCarousel({ offers }) {
       <div className="p-6">
         <h2 className="text-xl font-semibold">{offer.title}</h2>
         <p className="mt-2 text-ink-muted">{offer.description}</p>
-        <a href={offer.ctaUrl} className="mt-4 inline-block rounded bg-adobe px-4 py-2 font-medium text-white hover:bg-adobe-hover">
+        <a href={offer.ctaUrl} target="_blank" className="mt-4 inline-block rounded bg-adobe px-4 py-2 font-medium text-white hover:bg-adobe-hover">
           {offer.ctaText}
         </a>
       </div>

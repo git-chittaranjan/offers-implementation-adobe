@@ -1,7 +1,7 @@
 // Add or remove placements as needed
 const PLACEMENTS = ["IP_NLI_LOGOUT_PAGE_BANNER"];
 
-window.modifyComponents = function (props) {
+window.app.modifyComponents = function (props) {
 
     console.log("modifyComponents received props:", props);
 
