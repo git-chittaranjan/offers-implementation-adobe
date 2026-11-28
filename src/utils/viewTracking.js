@@ -1,43 +1,58 @@
-// let scrollBound = false;
+let tracked = false;
 
-// function fireOnFirstScroll() {
-//     if (scrollBound) return;
-//     scrollBound = true;
+const parseContent = (content) => {
+    if (typeof content !== "string") return content || {};
+    try {
+        return JSON.parse(content);
+    } catch {
+        return {};
+    }
+};
 
-//     const onScroll = () => {
-//         window.removeEventListener("scroll", onScroll);
-//         window._satellite?.track("pageScroll");
-//     };
-//     window.addEventListener("scroll", onScroll);
-// }
+// displayedOffers: only valid OD offers that are shown in the UI
+export function trackViewedOffers(displayedOffers = []) {
 
-// // propositions: only the entries (and items) that are being shown
-// export function trackViewedOffers(propositions = []) {
-//     const offerStrings = [];
+    if (tracked) {
+        return; // fire only once per page load
+    }
 
-//     propositions.forEach((p) => {
-//         p.items.forEach((item) => {
-//             let content = item?.data?.content;
-//             if (typeof content === "string") {
-//                 try { content = JSON.parse(content); } catch { content = {}; }
-//             }
-//             offerStrings.push(
-//                 [
-//                     p.placement?.name,
-//                     item.data?.characteristics?.OfferCode,
-//                     item.data?.characteristics?.Product,
-//                     content?.microSegmentName,
-//                 ].join(":")
-//             );
-//         });
-//     });
+    if (!displayedOffers.length) {
+        return;
+    }
 
-//     window._icicibank = window._icicibank || {};
-//     window._icicibank.offersViewed = {
-//         offers: offerStrings,
-//         hasOffers: offerStrings.length > 0,
-//     };
-//     window._icicibank.offersResponseArray = propositions;
+    const offerStrings = [];
+    const responseArray = [];
 
-//     fireOnFirstScroll();
-// }
+    displayedOffers.forEach(({ item, proposition }) => {
+        const content = parseContent(item?.data?.content);
+        const placementName = proposition?.placement?.name;
+
+        offerStrings.push(
+            [
+                placementName,
+                item?.data?.characteristics?.OfferCode,
+                item?.data?.characteristics?.Product,
+                content.microSegmentName,
+            ].join(":")
+        );
+
+        // Same structure as the OD payload, but only with displayed items
+        let entry = responseArray.find((r) => r.id === proposition.id);
+        if (!entry) {
+            entry = { ...proposition, items: [] };
+            responseArray.push(entry);
+        }
+        entry.items.push(item);
+    });
+
+    tracked = true;
+
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    window.adobeDataLayer.push({
+        event: "pageView",
+        _icicibank: {
+            offersViewed: { offers: offerStrings, hasOffers: true },
+            offersResponseArray: responseArray,
+        },
+    });
+}

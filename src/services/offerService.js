@@ -1,9 +1,9 @@
 import { DEFAULT_OFFERS } from "./defaultOffers";
+import { trackViewedOffers } from "../utils/viewTracking";
 
 // Extract and parse offer content
 const getOfferContent = (offer) => {
-
-  var content = offer.content || offer.data?.content;
+  let content = offer.content || offer.data?.content;
 
   if (typeof content === "string") {
     try {
@@ -16,15 +16,10 @@ const getOfferContent = (offer) => {
   return content && typeof content === "object" ? content : null;
 };
 
-
 // Convert an offer into the carousel format
 const toCarouselOffer = (offer) => {
-
-  var content = getOfferContent(offer);
-
-  if (!content) {
-    return null;
-  }
+  const content = getOfferContent(offer);
+  if (!content) return null;
 
   return {
     id: offer.id,
@@ -32,50 +27,42 @@ const toCarouselOffer = (offer) => {
     description: content.subHeaderText,
     imageUrl: content.imageURL,
     ctaText: content.primaryCTAText,
-    ctaUrl: content.primaryCTA
+    ctaUrl: content.primaryCTA,
   };
 };
 
+const mapDefaultOffers = () => DEFAULT_OFFERS.map(toCarouselOffer).filter(Boolean);
 
-// Return Adobe offers if available; otherwise return default offers
+// Return valid Adobe offers if available; otherwise return default offers
 export function mapOffers(offerList = []) {
+  // Keep only OD offers that have valid content
+  const validOffers = offerList.filter((offer) => toCarouselOffer(offer));
 
-  console.log("Received Adobe offers:", offerList);
-  console.log("Default offers:", DEFAULT_OFFERS);
-
-  var offersToDisplay = offerList.length > 0 ? offerList : DEFAULT_OFFERS;
-
-  var carouselOffers = offersToDisplay
-    .map(toCarouselOffer)
-    .filter(Boolean);
-
-  console.log("Final carousel offers:", carouselOffers);
-
-  // Use defaults if none of the received offers could be mapped (e.g., due to missing content of all OD offers)
-  if (carouselOffers.length === 0 && offersToDisplay !== DEFAULT_OFFERS) {
-    return DEFAULT_OFFERS.map(toCarouselOffer).filter(Boolean);
+  // No valid OD offers: show defaults, no tracking
+  if (validOffers.length === 0) {
+    return mapDefaultOffers();
   }
 
-  return carouselOffers;
-}
+  // Track only the valid OD offers that will be displayed (fires once)
+  trackViewedOffers(validOffers);
 
+  return validOffers.map(toCarouselOffer);
+}
 
 // Get offers available when the application loads
 export async function getOffers() {
   return mapOffers(window.__odOffers || []);
 }
 
-
 // Listen for offers returned by Adobe
 export function subscribeOffers(callback) {
-
   const eventHandler = (event) => {
     callback(mapOffers(event.detail || []));
   };
 
   window.addEventListener("od-offers", eventHandler);
 
-  // Remove the event listener when the component unmounts to prevent memory leaks and duplicate callbacks.
+  // Remove the listener on unmount to prevent duplicate callbacks
   return () => {
     window.removeEventListener("od-offers", eventHandler);
   };

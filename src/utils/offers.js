@@ -1,11 +1,9 @@
 // Add or remove placements as needed
-const PLACEMENTS = ["IP_NLI_LOGOUT_PAGE_BANNER"];
+const PLACEMENT = "IP_NLI_LOGOUT_PAGE_BANNER";
 
 window.app = window.app || {}; // Withou this default offers was not being displayed when Adobe offers were not available with window.app.modifyComponents
 
-window.app.modifyComponents = function (props) {
-
-    console.log("modifyComponents received props:", props);
+window.modifyComponents = function (props) {
 
     const offers = [];
 
@@ -17,7 +15,7 @@ window.app.modifyComponents = function (props) {
         const placementName = p?.placement?.name || p?.scopeDetails?.placement?.name;
 
         // Skip propositions that don't match the required placement
-        if (!PLACEMENTS.includes(placementName)) {
+        if (placementName !== PLACEMENT) {
             return;
         }
 
@@ -31,7 +29,9 @@ window.app.modifyComponents = function (props) {
                 name: item?.name,
                 score: item?.score,
                 priority: item?.priority,
-                content: item?.data?.content
+                content: item?.data?.content,
+                item: item,
+                proposition: p, // p is element of event.propositions array, which stores only IP_NLI_LOGOUT_PAGE_BANNER now
             });
 
         });
