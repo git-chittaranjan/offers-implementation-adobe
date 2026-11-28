@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { trackOfferClick } from '../utils/clickTracking'
 
 export default function OfferCarousel({ offers }) {
   const [index, setIndex] = useState(0)
@@ -33,7 +34,13 @@ export default function OfferCarousel({ offers }) {
       <div className="p-6">
         <h2 className="text-xl font-semibold">{offer.title}</h2>
         <p className="mt-2 text-ink-muted">{offer.description}</p>
-        <a href={offer.ctaUrl} target="_blank" className="mt-4 inline-block rounded bg-adobe px-4 py-2 font-medium text-white hover:bg-adobe-hover">
+        <a
+          href={offer.ctaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackOfferClick(offer.id, offer.ctaText)}
+          className="mt-4 inline-block rounded bg-adobe px-4 py-2 font-medium text-white hover:bg-adobe-hover"
+        >
           {offer.ctaText}
         </a>
       </div>
